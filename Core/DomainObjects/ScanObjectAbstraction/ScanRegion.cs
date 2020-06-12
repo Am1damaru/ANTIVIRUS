@@ -1,35 +1,34 @@
-﻿
+﻿using System.IO;
 
 namespace Core.DomainObjects.ScanObjectAbstraction
 {
-    public interface IScanRegionReadCallback
-    {
-        void OnScanRegionBegin(ulong regionOffset, ulong regionSize);
-
-        void OnScanRegionData(ulong regionOffset, ulong RegionSize, byte[] regionData, uint RegionDataActualBytes);
-
-        void OnScanRegionEnd(ulong regionOffset, ulong regionSize);
-
-    }
-
     public class ScanRegion
     {
+
         public ulong Offset { get; }  //Смещение относительно начала контента
         public ulong Size { get; } //Размер сегмента
 
         public IObjectContent Content { get; }
 
-        public void Read(byte[] block, IScanRegionReadCallback callback) //Метод блочного чтения заданного региона
+        public ScanRegion(ulong Offset, ulong Size, IObjectContent Content)
         {
-            ulong position = Offset;
-            callback?.OnScanRegionBegin(Offset, Size);
-            while (Content.Read(position, block, out uint bytesRead))
+            this.Offset = Offset;
+            this.Size = Size;
+            this.Content = Content;
+        }
+
+        public byte[] Read(ulong Position)
+        {
+            using (BinaryReader reader = new BinaryReader(File.Open(Content.Path, FileMode.Open)))
             {
-                position += bytesRead;
-                callback?.OnScanRegionEnd(Offset, Size);
+                byte[] bytes = new byte[8];
+
+                reader.Read(bytes, (int)Position , 8);
+                return bytes;
             }
 
         }
+       
 
     }
 }

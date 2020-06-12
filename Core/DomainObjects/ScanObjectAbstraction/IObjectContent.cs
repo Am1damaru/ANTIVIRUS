@@ -6,9 +6,11 @@ namespace Core.DomainObjects.ScanObjectAbstraction
 {
     public interface IObjectContent
     {
+
+        string Path { get; set; }
         ulong SizeObject();
 
-        bool Read(ulong Position, byte[] data, out uint readBytesCount);
+        byte[] Read(ulong Position);
 
     }
 }

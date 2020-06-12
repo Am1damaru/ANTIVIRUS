@@ -34,13 +34,14 @@ namespace Core.DomainObjects.Scan
 
         }
         
+        /*
         public ScanObject SearchContent()
         {
             ScanObject obj = new ScanObject();
 
 
         }
-        
+        */
         
 
 
