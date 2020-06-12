@@ -26,20 +26,25 @@ namespace Core.DomainObjects.ScanObjectAbstraction
         {
             this.Name = Name;
             this.Path = path;
+            ulong bytes = 1;
+            ScanRegions = new List<ScanRegion>();
             using (BinaryReader reader = new BinaryReader(File.Open(path, FileMode.Open)))
             {
-                ulong bytes = 1;
+                
                 while (reader.PeekChar() > -1)
                 {
-                    if(bytes%1024 ==0)
+                    if(bytes%1024 == 0 && bytes>=1024)
                     {
-                        ScanRegion scans = new ScanRegion((bytes - 1024), 1024, new ScanObject(Path));
-                        ScanRegions.Add(scans);
-                    }
-                    ScanRegion scan = new ScanRegion(bytes-(bytes%1024), (bytes % 1024), new ScanObject(Path));
-                    ScanRegions.Add(scan);
+                        reader.ReadByte();
+                        ScanRegions.Add(new ScanRegion((bytes - 1024), 1024, new ScanObject(Path)));
+                        continue;
+                    }  
+                    
                     bytes++;
                 }
+                bytes--;
+                ScanRegions.Add(new ScanRegion((bytes - (bytes % 1024)), (bytes % 1024), new ScanObject(Path)));
+
                 this.Length = bytes-1;
             }
         }

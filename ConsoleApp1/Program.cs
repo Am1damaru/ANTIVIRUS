@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Core.DomainObjects.Bases;
+using Core.DomainObjects.ScanObjectAbstraction;
 using Core.DomainObjects.TST;
 
 
@@ -35,9 +36,13 @@ namespace ConsoleApp1
 
             signat = tree.CheckSignature(bytes);
 
-            
 
 
+            string path = @"C:\export.txt";
+
+            ScanObject obj = new ScanObject("Name", path);
+
+            Console.WriteLine(BitConverter.ToString(obj.Read(20)));
 
 
 
