@@ -6,21 +6,16 @@ using Core.DomainObjects.ScanObjectAbstraction;
 
 namespace Core.DomainObjects.Scan
 {
-    class PEScanObjectBuilder
+    public class PEScanObjectBuilder
     {
 
 
-
-
-
-
-
-        private bool CheckPEFile(string file)
+        public bool CheckPEFile(string path)
         {
             try
             {
                 var firstTwoBytes = new byte[2];
-                using (var fileStream = File.Open(file, FileMode.Open))
+                using (var fileStream = File.Open(path, FileMode.Open))
                 {
                     fileStream.Read(firstTwoBytes, 0, 2);
                 }

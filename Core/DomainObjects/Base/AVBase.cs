@@ -7,52 +7,109 @@ using Core.DomainObjects.TST;
 using System.Threading;
 
 namespace Core.DomainObjects.Base
-{/*
-    class AVBase
+{
+    public class AVBase
     {
-        public string BaseName = @"C:\SigBase.dat";
+        public string BasePath = @"C:\amw\SigBase.dat";
 
+        private string NameBase = "BVT1702-KGK";
 
-
-        public ThreadSignature LoadRecords()
+        public Tree LoadRecords()
         {
-            ThreadSignature sign = new ThreadSignature();
+            Tree tree = new Tree();
+
+
+            using (BinaryReader reader = new BinaryReader(File.Open(BasePath, FileMode.Open)))
+            {
 
 
 
-            return sign;
+                reader.BaseStream.Position = 0;
+                if (reader.ReadString() == NameBase)
+                {
+                    reader.BaseStream.Position = 25;
+
+                    while (reader.PeekChar() > -1)
+                    {
+                        char[] Name = reader.ReadChars(20);
+                        ulong MinOffset = reader.ReadUInt64();
+                        ulong MaxOffset = reader.ReadUInt64();
+                        uint DataLength = reader.ReadUInt32();
+                        byte[] Data = reader.ReadBytes(8);
+                        byte[] Hash = reader.ReadBytes(32);
+                        ThreadSignature sig = new ThreadSignature(Name, MinOffset, MaxOffset, DataLength, Data, Hash);
+                        tree.Add(sig);
+                    }
+
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            return tree;
+
+
         }
 
-        public void AddBase()
+        public bool AddBase(ThreadSignature sign)
         {
 
-
-            if (File.Exists(BaseName))
+            ulong count;
+            using (BinaryReader reader = new BinaryReader(File.Open(BasePath, FileMode.Open)))
             {
-                Console.WriteLine(BaseName + " already exists!");
-                return;
+                reader.BaseStream.Position = 0;
+                if (reader.ReadString() == NameBase)
+                {
+                    reader.BaseStream.Position = 17;
+                    count = reader.ReadUInt64();
+                    count++;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            using (BinaryWriter writer = new BinaryWriter(File.Open(BasePath, FileMode.Open)))
+            {
+                writer.Seek(17, 0);
+                writer.Write(count);
+
+            }
+
+
+            using (BinaryWriter writer = new BinaryWriter(File.Open(BasePath, FileMode.Append)))
+            {
+
+                writer.Write(sign.ThreadName);
+                writer.Write(sign.SignatureFirstByteMinOffset);
+                writer.Write(sign.SignatureFirstByteMaxOffset);
+                writer.Write(sign.Signature.DataLength);
+                writer.Write(sign.Signature.Data);
+                writer.Write(sign.Signature.Hash);
+                return true;
             }
 
 
 
+        }
 
-            BinaryWriter writer = new BinaryWriter(File.Open(BaseName, FileMode.OpenOrCreate));
+        public void CreateBase()
+        {
+            using (BinaryWriter writer = new BinaryWriter(File.Open(BasePath, FileMode.OpenOrCreate)))
+            {
 
-            foreach (ThreadSignature s in thread)
-            { 
-                writer.Write(s.ThreadName);
-                writer.Write(s.Signature.Data);
-                writer.Write(s.Signature.DataLength);
-                writer.Write(s.Signature.Hash);
-                writer.Write(s.SignatureFirstByteMaxOffset);
-                writer.Write(s.SignatureFirstByteMaxOffset);
+                writer.Write(NameBase);
+                writer.Seek(17,0);
+                writer.Write((ulong)0);
+
             }
-
 
 
         }
     }
 
-    */
+    
     
 }

@@ -7,13 +7,13 @@ namespace Core.DomainObjects.Bases
 {
     public class ThreadSignature
     {
-        public char[] ThreadName { get; }
+        public char[] ThreadName { get; set; }
 
-        public SignatureAsBlobAndHash Signature { get; }
+        public SignatureAsBlobAndHash Signature { get; set; }
 
-        public ulong SignatureFirstByteMinOffset { get; }
+        public ulong SignatureFirstByteMinOffset { get; set; }
 
-        public ulong SignatureFirstByteMaxOffset { get; }
+        public ulong SignatureFirstByteMaxOffset { get; set; }
 
         public ThreadSignature(string Name, string allData, ulong MinOffset, ulong MaxOffset)
         {
@@ -34,19 +34,26 @@ namespace Core.DomainObjects.Bases
             SignatureFirstByteMinOffset = MinOffset;
             SignatureFirstByteMaxOffset = MaxOffset;
         }
-        public ThreadSignature()
-        { }
+        public ThreadSignature(char[] Name, ulong MinOffset, ulong MaxOffset, uint DataLength, byte[] Data, byte[] Hash)
+        {
+            this.ThreadName = Name;
+            this.SignatureFirstByteMinOffset = MinOffset;
+            this.SignatureFirstByteMaxOffset = MaxOffset;
+            Signature = new SignatureAsBlobAndHash(DataLength, Data, Hash);
+        
+        }
 
     }
 
     public class SignatureAsBlob
     {
-        public virtual uint DataLength => (uint)Data.Length;
+        public virtual uint DataLength { get; set; }
 
-        public byte[] Data { get; }
+        public byte[] Data { get; set; }
 
         public SignatureAsBlob(byte[] data)
         {
+            DataLength = (uint)data.Length;
             Data = data;
         }
 
@@ -69,23 +76,23 @@ namespace Core.DomainObjects.Bases
     {
         private const int SIGNATURE_PREFIX_LENGTH = 8;
 
-        private readonly uint _dataLength;
+        
 
-        public override uint DataLength => _dataLength;
+        public override uint DataLength { get; set; }
 
-        public byte[] Hash { get; }
+        public byte[] Hash { get; set; }
 
         public SignatureAsBlobAndHash(byte[] allData)
             : base(allData.Take(SIGNATURE_PREFIX_LENGTH).ToArray())
         {
-            _dataLength = (uint)allData.Length;
+            DataLength = (uint)allData.Length;
             Hash = CalculateHash(allData);
         }
 
         public SignatureAsBlobAndHash(uint fullDataLength, byte[] dataFirstBytes, byte[] fullDataHash)
             : base(dataFirstBytes)
         {
-            _dataLength = fullDataLength;
+            DataLength = fullDataLength;
             Hash = fullDataHash;
         }
 
@@ -104,6 +111,5 @@ namespace Core.DomainObjects.Bases
             var hashCalculator = SHA256.Create();
             return hashCalculator.ComputeHash(data);
         }
-
     }
 }
