@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Core.DomainObjects.ScanObjectAbstraction
@@ -33,13 +34,14 @@ namespace Core.DomainObjects.ScanObjectAbstraction
                 
                 while (reader.PeekChar() > -1)
                 {
-                    if(bytes%1024 == 0 && bytes>=1024)
+                    if((bytes%1024 == 0) && (bytes>=1024))
                     {
                         reader.ReadByte();
                         ScanRegions.Add(new ScanRegion((bytes - 1024), 1024, new ScanObject(Path)));
+                        bytes++;
                         continue;
-                    }  
-                    
+                    }
+                    reader.ReadByte();
                     bytes++;
                 }
                 bytes--;
@@ -51,11 +53,11 @@ namespace Core.DomainObjects.ScanObjectAbstraction
         public ulong SizeObject()
         {
             return Length;
-
         }
 
         public byte[] Read(ulong Position)
         {
+            Console.WriteLine(ScanRegions.Count);
             foreach(var s in ScanRegions)
             {
                 if(s.Size<Position)
