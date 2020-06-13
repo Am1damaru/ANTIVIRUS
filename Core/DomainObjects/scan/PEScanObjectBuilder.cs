@@ -12,34 +12,23 @@ namespace Core.DomainObjects.Scan
 
         public bool CheckPEFile(string path)
         {
-            try
+
+            using (BinaryReader reader = new BinaryReader(File.Open(path, FileMode.Open)))
             {
                 var firstTwoBytes = new byte[2];
-                using (var fileStream = File.Open(path, FileMode.Open))
+                reader.BaseStream.Position = 0;
+                for (int i = 0; i < 2; i++)
                 {
-                    fileStream.Read(firstTwoBytes, 0, 2);
+                    firstTwoBytes[i] = reader.ReadByte();
                 }
+
                 return Encoding.UTF8.GetString(firstTwoBytes) == "MZ";
+
+
+
             }
-            catch (Exception ex)
-            {
-
-            }
-            return false;
-
+     
         }
-
-        /*
-        public ScanObject SearchContent()
-        {
-            ScanObject obj = new ScanObject();
-
-
-        }
-        */
-
-
-
 
     }
 }

@@ -16,6 +16,29 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+            string z;
+            string a;
+            byte[] q = new byte[8];
+            ScanObjectBuilder scan = new ScanObjectBuilder(@"C:\amw");
+
+            List<ScanObject> s = scan.GetObjects();
+
+            
+            q = s[3].ChildObjects[0].Read(0);
+            q = s[2].Read(0);
+
+
+            /*
+            ScanObjectBuilder scan = new ScanObjectBuilder(@"C:\lab8");
+
+            
+            List<ScanObject> scans = scan.GetObjects();
+
+
+
+
+
+            
 
             byte[] bytes = { 83, 250, 36, 49, 255 ,255,255,255 };
 
@@ -42,7 +65,7 @@ namespace ConsoleApp1
             List<ThreadSignature> signat = new List<ThreadSignature>();
 
             signat = tree.CheckSignature(bytes);
-
+            */
             /*
             
 

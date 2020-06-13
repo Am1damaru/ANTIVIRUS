@@ -29,7 +29,7 @@ namespace Core.DomainObjects.Base
                 {
                     reader.BaseStream.Position = 25;
 
-                    while (reader.PeekChar() > -1)
+                    while (reader.BaseStream.Position != reader.BaseStream.Length)
                     {
                         char[] Name = reader.ReadChars(20);
                         ulong MinOffset = reader.ReadUInt64();

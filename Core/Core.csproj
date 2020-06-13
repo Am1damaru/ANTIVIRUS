@@ -33,6 +33,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,8 +49,10 @@
     <Compile Include="DomainObjects\ScanObjectAbstraction\ScanObject.cs" />
     <Compile Include="DomainObjects\ScanObjectAbstraction\ScanRejion.cs" />
     <Compile Include="DomainObjects\Scan\PEScanObjectBuilder.cs" />
+    <Compile Include="DomainObjects\Scan\ScanEngine.cs" />
     <Compile Include="DomainObjects\Scan\ScanObjectBuilder.cs" />
     <Compile Include="DomainObjects\Scan\ScanReport.cs" />
+    <Compile Include="DomainObjects\Scan\ScanSession.cs" />
     <Compile Include="DomainObjects\Scan\ZipScanObjectBuilder.cs" />
     <Compile Include="DomainObjects\TST\Node.cs" />
     <Compile Include="DomainObjects\TST\Tree.cs" />

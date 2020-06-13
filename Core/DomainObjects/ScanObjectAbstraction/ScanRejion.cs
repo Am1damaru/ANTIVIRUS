@@ -19,11 +19,13 @@ namespace Core.DomainObjects.ScanObjectAbstraction
 
         public byte[] Read(ulong Position)
         {
-            using (BinaryReader reader = new BinaryReader(File.Open(Content.Path, FileMode.Open)))
+            try
             {
+                using (BinaryReader reader = new BinaryReader(File.Open(Content.Path, FileMode.Open)))
+                {
                 byte[] bytes = new byte[8];
 
-                reader.BaseStream.Position = 0;
+                reader.BaseStream.Position = (long)Position;
 
                 for (int i = 0; i < 8; i++)
                 {
@@ -31,11 +33,43 @@ namespace Core.DomainObjects.ScanObjectAbstraction
 
 
                 }
-                //   reader.Read(bytes, (int)Position , 8);
                 return bytes;
+                }
+            }
+            catch
+            {
+                return null;
             }
 
         }
+        public byte[] Read(ulong Position, int length)
+        {
+            try
+            {
+                using (BinaryReader reader = new BinaryReader(File.Open(Content.Path, FileMode.Open)))
+                {
+                    byte[] bytes = new byte[length];
+
+                    reader.BaseStream.Position = (long)Position;
+
+                    for (int i = 0; i < length; i++)
+                    {
+                        bytes[i] = reader.ReadByte();
+
+                    }
+                    //   reader.Read(bytes, (int)Position , 8);
+                    return bytes;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+            
+
+        }
+
+
 
 
     }
