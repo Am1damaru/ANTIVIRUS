@@ -17,7 +17,7 @@ namespace Core.DomainObjects.Bases
 
         public ThreadSignature(string Name, string allData, ulong MinOffset, ulong MaxOffset)
         {
-            ThreadName = Name.PadRight(20).ToCharArray(0,20);
+            ThreadName = Name.PadRight(20).ToCharArray(0, 20);
 
             string[] hexValuesSplit = allData.Split(' ');
 
@@ -40,7 +40,7 @@ namespace Core.DomainObjects.Bases
             this.SignatureFirstByteMinOffset = MinOffset;
             this.SignatureFirstByteMaxOffset = MaxOffset;
             Signature = new SignatureAsBlobAndHash(DataLength, Data, Hash);
-        
+
         }
 
     }
@@ -76,7 +76,7 @@ namespace Core.DomainObjects.Bases
     {
         private const int SIGNATURE_PREFIX_LENGTH = 8;
 
-        
+
 
         public override uint DataLength { get; set; }
 

@@ -23,12 +23,12 @@ namespace Core.DomainObjects.Scan
             }
             catch (Exception ex)
             {
-                
+
             }
             return false;
 
         }
-        
+
         /*
         public ScanObject SearchContent()
         {
@@ -37,7 +37,7 @@ namespace Core.DomainObjects.Scan
 
         }
         */
-        
+
 
 
 

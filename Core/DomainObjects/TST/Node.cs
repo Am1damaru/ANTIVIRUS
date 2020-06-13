@@ -15,7 +15,7 @@ namespace Core.DomainObjects.TST
         public bool End { get; set; }
         public List<ThreadSignature> ListSignatures { get; set; }
 
-        public Node(ThreadSignature signature,byte data)
+        public Node(ThreadSignature signature, byte data)
         {
             Data = data;
         }
@@ -27,16 +27,16 @@ namespace Core.DomainObjects.TST
                 ListSignatures = new List<ThreadSignature>();
                 ListSignatures.Add(signature);
             }
-            else 
-            { 
-                ListSignatures.Add(signature); 
+            else
+            {
+                ListSignatures.Add(signature);
             }
-            
+
         }
 
         public void Add(ThreadSignature signature)
         {
-           
+
             Node current = this;
             int comparer;
             for (int i = 0; i < signature.Signature.Data.Length; i++)
@@ -52,7 +52,7 @@ namespace Core.DomainObjects.TST
                     }
 
                     if (current.Equal == null)
-                        current.Equal = new Node(signature, signature.Signature.Data[i+1]);
+                        current.Equal = new Node(signature, signature.Signature.Data[i + 1]);
                     current = current.Equal;
                 }
                 else
@@ -81,11 +81,11 @@ namespace Core.DomainObjects.TST
             }
         }
 
-        public List<ThreadSignature> CheckSign(byte [] data)
+        public List<ThreadSignature> CheckSign(byte[] data)
         {
             Node current = this;
             int comparer;
-            for (int i = 0; i < data.Length; )
+            for (int i = 0; i < data.Length;)
             {
                 comparer = data[i].CompareTo(current.Data);
                 if (comparer == 0)
@@ -96,7 +96,7 @@ namespace Core.DomainObjects.TST
                     }
                     else
                     {
-                        current=current.Equal;
+                        current = current.Equal;
                         i++;
                     }
                 }
@@ -104,13 +104,13 @@ namespace Core.DomainObjects.TST
                 {
                     if (comparer < 0)
                     {
-                            current = current.Left;
+                        current = current.Left;
                     }
                     else
                     {
-                            current = current.Right;
+                        current = current.Right;
                     }
-                    
+
                 }
             }
             return null;

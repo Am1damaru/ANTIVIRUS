@@ -101,7 +101,7 @@ namespace Core.DomainObjects.Base
             {
 
                 writer.Write(NameBase);
-                writer.Seek(17,0);
+                writer.Seek(17, 0);
                 writer.Write((ulong)0);
 
             }
@@ -110,6 +110,6 @@ namespace Core.DomainObjects.Base
         }
     }
 
-    
-    
+
+
 }

@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{69F3D384-C426-4E00-9EF7-C0B55D010C40}</Project>
+      <Project>{9ebbf849-852d-4c42-982b-09b29aeeae58}</Project>
       <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>

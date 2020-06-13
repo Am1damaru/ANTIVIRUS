@@ -19,7 +19,7 @@ namespace Core.DomainObjects.Scan
                     fileStream.Read(firstFourBytes, 0, 4);
                 }
 
-                string[] strBytesZip= new string[] { "50", "4B", "03", "04" };
+                string[] strBytesZip = new string[] { "50", "4B", "03", "04" };
 
                 byte[] bytes = new byte[4];
 
@@ -30,7 +30,18 @@ namespace Core.DomainObjects.Scan
                     i++;
                 }
 
-                return firstFourBytes.SequenceEqual(bytes);
+                if (firstFourBytes.SequenceEqual(bytes))
+                {
+                    FileInfo check = new FileInfo(path);
+                    if (check.Extension == ".zip")
+                        return true;
+                    else
+                        return false;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {

@@ -25,18 +25,18 @@ namespace Core.DomainObjects.ScanObjectAbstraction
 
                 reader.BaseStream.Position = 0;
 
-                for (int i=0;i<8;i++)
+                for (int i = 0; i < 8; i++)
                 {
                     bytes[i] = reader.ReadByte();
 
 
                 }
-             //   reader.Read(bytes, (int)Position , 8);
+                //   reader.Read(bytes, (int)Position , 8);
                 return bytes;
             }
 
         }
-       
+
 
     }
 }

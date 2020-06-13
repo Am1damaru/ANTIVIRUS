@@ -28,10 +28,10 @@ namespace Core.DomainObjects.TST
         public List<ThreadSignature> CheckSignature(byte[] data)
         {
             return Root.CheckSign(data);
-        }    
+        }
 
 
-        
+
 
     }
 }

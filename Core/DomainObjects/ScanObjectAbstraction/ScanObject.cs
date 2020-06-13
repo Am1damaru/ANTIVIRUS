@@ -31,10 +31,10 @@ namespace Core.DomainObjects.ScanObjectAbstraction
             ScanRegions = new List<ScanRegion>();
             using (BinaryReader reader = new BinaryReader(File.Open(path, FileMode.Open)))
             {
-                
+
                 while (reader.PeekChar() > -1)
                 {
-                    if((bytes%1024 == 0) && (bytes>=1024))
+                    if ((bytes % 1024 == 0) && (bytes >= 1024))
                     {
                         reader.ReadByte();
                         ScanRegions.Add(new ScanRegion((bytes - 1024), 1024, new ScanObject(Path)));
@@ -47,7 +47,7 @@ namespace Core.DomainObjects.ScanObjectAbstraction
                 bytes--;
                 ScanRegions.Add(new ScanRegion((bytes - (bytes % 1024)), (bytes % 1024), new ScanObject(Path)));
 
-                this.Length = bytes-1;
+                this.Length = bytes - 1;
             }
         }
         public ulong SizeObject()
@@ -58,9 +58,9 @@ namespace Core.DomainObjects.ScanObjectAbstraction
         public byte[] Read(ulong Position)
         {
             Console.WriteLine(ScanRegions.Count);
-            foreach(var s in ScanRegions)
+            foreach (var s in ScanRegions)
             {
-                if(s.Size<Position)
+                if (s.Size < Position)
                 {
                     continue;
                 }
@@ -70,7 +70,7 @@ namespace Core.DomainObjects.ScanObjectAbstraction
             return null;
 
         }
-        
+
 
 
 
