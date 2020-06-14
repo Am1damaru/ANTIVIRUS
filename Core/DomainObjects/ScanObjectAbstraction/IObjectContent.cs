@@ -9,7 +9,6 @@ namespace Core.DomainObjects.ScanObjectAbstraction
 
         string Path { get; set; }
         ulong SizeObject();
-
         byte[] Read(ulong Position);
 
     }

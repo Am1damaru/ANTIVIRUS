@@ -48,7 +48,7 @@
     <Compile Include="DomainObjects\Monitor\DirectoryMonitor.cs" />
     <Compile Include="DomainObjects\ScanObjectAbstraction\IObjectContent.cs" />
     <Compile Include="DomainObjects\ScanObjectAbstraction\ScanObject.cs" />
-    <Compile Include="DomainObjects\ScanObjectAbstraction\ScanRejion.cs" />
+    <Compile Include="DomainObjects\ScanObjectAbstraction\ScanRegion.cs" />
     <Compile Include="DomainObjects\Scan\PEScanObjectBuilder.cs" />
     <Compile Include="DomainObjects\Scan\ScanEngine.cs" />
     <Compile Include="DomainObjects\Scan\ScanObjectBuilder.cs" />
