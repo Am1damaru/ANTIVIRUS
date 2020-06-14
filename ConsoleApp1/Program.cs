@@ -9,6 +9,7 @@ using Core.DomainObjects.TST;
 using Core.DomainObjects.Scan;
 using Core.DomainObjects.Base;
 using Core.DomainObjects.scan;
+using Core.DomainObjects.Monitor;
 
 namespace ConsoleApp1
 {
@@ -17,6 +18,25 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            /*
            // string path;
           //  path = Console.ReadLine();
 
@@ -30,7 +50,7 @@ namespace ConsoleApp1
                 Console.WriteLine(f[1]);
             }
 
-            /*
+            
             string z;
             string a;
             byte[] q = new byte[8];
