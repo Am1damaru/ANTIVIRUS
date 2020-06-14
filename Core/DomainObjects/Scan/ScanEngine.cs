@@ -48,16 +48,19 @@ namespace Core.DomainObjects.Scan
                     List<ThreadSignature> signatures = tree.CheckSignature(prefix);
                     if(signatures != null)
                         { 
-                    foreach (var sig in signatures)
-                    {
-                        uint dataLength = sig.Signature.DataLength;
-                        byte[] searchSign = new byte[dataLength];
-                        searchSign = chobj.Read(i);
-                        if (sig.Signature.IsMatch(searchSign))
-                        {
-                            rep.AddRecord(new ScanReport(new string (sig.ThreadName), obj.Path + chobj.Name));
-                        }
-                    }
+                            foreach (var sig in signatures)
+                            {
+                                if (sig.SignatureFirstByteMinOffset < i && sig.SignatureFirstByteMaxOffset > i)
+                                {
+                                    uint dataLength = sig.Signature.DataLength;
+                                    byte[] searchSign = new byte[dataLength];
+                                    searchSign = chobj.Read(i);
+                                    if (sig.Signature.IsMatch(searchSign))
+                                    {
+                                        rep.AddRecord(new ScanReport(new string(sig.ThreadName), obj.Path + chobj.Name));
+                                    }
+                                }
+                            }
                         }
                     }
                 rep.scannedObjects = i;
@@ -75,12 +78,15 @@ namespace Core.DomainObjects.Scan
                     {
                         foreach (var sig in signatures)
                         {
-                            uint dataLength = sig.Signature.DataLength;
-                            byte[] searchSign = new byte[dataLength];
-                            searchSign = obj.Read(i);
-                            if (sig.Signature.IsMatch(searchSign))
+                            if (sig.SignatureFirstByteMinOffset < i && sig.SignatureFirstByteMaxOffset > i)
                             {
-                                return new ScanReport(new string(sig.ThreadName), obj.Path);
+                                uint dataLength = sig.Signature.DataLength;
+                                byte[] searchSign = new byte[dataLength];
+                                searchSign = obj.Read(i);
+                                if (sig.Signature.IsMatch(searchSign))
+                                {
+                                    return new ScanReport(new string(sig.ThreadName), obj.Path);
+                                }
                             }
                         }
 

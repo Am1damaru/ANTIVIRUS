@@ -17,19 +17,12 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
 
-            
+            string path;
+            path = Console.ReadLine();
 
-
-            ScanSession session = new ScanSession(@"C:\amw", "User");
+            ScanSession session = new ScanSession(@path, "User");
 
             ScanReport report = session.getReport();
-
-
-
-
-
-
-
 
             /*
             string z;
@@ -94,14 +87,6 @@ namespace ConsoleApp1
 
             tree.Add(sig[0]);
             tree.Add(sig[1]);
-
-
-
-            
-
-
-            
-
 
 
             string path = @"C:\export.txt";
