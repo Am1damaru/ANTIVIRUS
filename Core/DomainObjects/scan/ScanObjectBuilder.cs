@@ -8,9 +8,6 @@ namespace Core.DomainObjects.Scan
 {
     public class ScanObjectBuilder
     {
-
-        
-
         private List<ScanObject> ScanObjects;
 
 

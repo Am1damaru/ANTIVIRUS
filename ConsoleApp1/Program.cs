@@ -8,7 +8,7 @@ using Core.DomainObjects.ScanObjectAbstraction;
 using Core.DomainObjects.TST;
 using Core.DomainObjects.Scan;
 using Core.DomainObjects.Base;
-
+using Core.DomainObjects.scan;
 
 namespace ConsoleApp1
 {
@@ -16,10 +16,26 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+
+            
+
+
+            ScanSession session = new ScanSession(@"C:\amw", "User");
+
+            ScanReport report = session.getReport();
+
+
+
+
+
+
+
+
+            /*
             string z;
             string a;
             byte[] q = new byte[8];
-            ScanObjectBuilder scan = new ScanObjectBuilder(@"C:\amw");
+            ScanObjectBuilder scan = new ScanObjectBuilder(@"C:\");
 
             List<ScanObject> s = scan.GetObjects();
 
@@ -28,7 +44,7 @@ namespace ConsoleApp1
             q = s[2].Read(0);
 
 
-            /*
+            
             ScanObjectBuilder scan = new ScanObjectBuilder(@"C:\lab8");
 
             
@@ -36,16 +52,21 @@ namespace ConsoleApp1
 
 
 
+            ThreadSignature[] sig = new ThreadSignature[2];
 
+            sig[0] = new ThreadSignature("adhf", "69 73 20 70 72 6F 67 72", 15, 20);
+            sig[1] = new ThreadSignature("adhjfbw", "53 FA 24 31 FF FF FF FF", 15, 20);
+
+            AVBase base1 = new AVBase();
+
+
+            base1.AddBase(sig[0]);
 
             
 
             byte[] bytes = { 83, 250, 36, 49, 255 ,255,255,255 };
 
-            ThreadSignature[] sig = new ThreadSignature[2];
-
-            sig[0] = new ThreadSignature("adhjfbwjefvqjhvhqwgwqvbaskjvbesdhbvksjvbwv", "34 54 23 FF F2 FF FF FF", 15, 20);
-            sig[1] = new ThreadSignature("adhjfbw", "53 FA 24 31 FF FF FF FF", 15, 20);
+           
 
             Console.WriteLine(BitConverter.ToString(sig[1].Signature.Hash));
             string path = @"C:\Users\AmidamaRU\Downloads\FP-master.zip";

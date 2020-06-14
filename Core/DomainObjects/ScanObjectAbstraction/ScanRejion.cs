@@ -38,7 +38,8 @@ namespace Core.DomainObjects.ScanObjectAbstraction
             }
             catch
             {
-                return null;
+                byte[] b = new byte[] { 0 };
+                return b;
             }
 
         }
@@ -63,7 +64,8 @@ namespace Core.DomainObjects.ScanObjectAbstraction
             }
             catch
             {
-                return null;
+                byte[] b = new byte[] { 0 };
+                return b;
             }
             
 

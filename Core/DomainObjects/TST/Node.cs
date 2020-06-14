@@ -82,37 +82,39 @@ namespace Core.DomainObjects.TST
         }
 
         public List<ThreadSignature> CheckSign(byte[] data)
-        {
-            Node current = this;
-            int comparer;
-            for (int i = 0; i < data.Length;)
-            {
-                comparer = data[i].CompareTo(current.Data);
-                if (comparer == 0)
-                {
-                    if (i == data.Length - 1)
-                    {
-                        return current.Equal.ListSignatures;
-                    }
-                    else
-                    {
-                        current = current.Equal;
-                        i++;
-                    }
-                }
-                else
-                {
-                    if (comparer < 0)
-                    {
-                        current = current.Left;
-                    }
-                    else
-                    {
-                        current = current.Right;
-                    }
+        { 
 
+                Node current = this;
+                int comparer;
+                for (int i = 0; i < data.Length;)
+                {
+                if (current == null)
+                    return null;
+                    comparer = data[i].CompareTo(current.Data);
+                    if (comparer == 0)
+                    {
+                        if (i == data.Length - 1)
+                        {
+                            return current.Equal.ListSignatures;
+                        }
+                        else
+                        {
+                            current = current.Equal;
+                            i++;
+                        }
+                    }
+                    else
+                    {
+                        if (comparer < 0)
+                        {
+                            current = current.Left;
+                        }
+                        else
+                        {
+                            current = current.Right;
+                        }
+                    } 
                 }
-            }
             return null;
         }
 

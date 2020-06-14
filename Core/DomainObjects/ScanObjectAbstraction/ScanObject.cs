@@ -13,7 +13,7 @@ namespace Core.DomainObjects.ScanObjectAbstraction
     {
         public string Name { get; }
 
-        public static string PathToZip = @"C:\amw\av\";
+        public static string PathToBase = @"C:\amw\av\";
 
         public string Path { get; set; }
 
@@ -40,8 +40,8 @@ namespace Core.DomainObjects.ScanObjectAbstraction
                             {
                                 try
                                 {
-                                    Directory.CreateDirectory(PathToZip);
-                                    entry.ExtractToFile(PathToZip + entry.Name);
+                                    Directory.CreateDirectory(PathToBase);
+                                    entry.ExtractToFile(PathToBase + entry.Name);
                                 }
                                 catch (Exception)
                                 {
@@ -52,7 +52,7 @@ namespace Core.DomainObjects.ScanObjectAbstraction
                                 if (ChildObjects == null)
                                 {
                                     ChildObjects = new List<ScanObject>();
-                                    ChildObjects.Add(new ScanObject(entry.Name, PathToZip+ entry.Name));
+                                    ChildObjects.Add(new ScanObject(entry.FullName, PathToBase + entry.Name));
 
                                 }
 
@@ -116,73 +116,8 @@ namespace Core.DomainObjects.ScanObjectAbstraction
 
             }
             }
-
-            return null;
-
-        }
-
-        public byte[] ReadZip(ulong Position)
-        {
-
-            using (FileStream zipToOpen = new FileStream(Name, FileMode.Open))
-            {
-                using (ZipArchive archive = new ZipArchive(zipToOpen, ZipArchiveMode.Read))
-                {
-                    ZipArchiveEntry entry = archive.GetEntry(Path);
-
-
-                    entry.ExtractToFile(@"C:\amw\f.exe");
-                    return null;
-
-
-
-
-
-
-
-
-
-
-
-                    /*
-                    using (StreamReader buffer = new StreamReader(entry.Open(), Encoding.Default))
-                    {
-                        // Console.WriteLine(entry.Name);
-                        byte[] bytes = new byte[8];
-                        char[] ch = new char[8];
-                        char[] cha = new char[Convert.ToInt32(Position)];
-                        Console.WriteLine(Convert.ToInt32(Position));
-                        buffer.Read(cha, 0, Convert.ToInt32(Position));
-
-                        int readed = buffer.Read(;
-                        string s = new string(ch);
-                        bytes = (s);
-                        return bytes;
-
-
-                    }
-                    */
-
-
-                    /*
-                     * 
-                     * 
-                     * 
-                    using (BinaryReader reader = new BinaryReader(entry.Open()))
-                    {
-
-                        reader.BaseStream.Position = (long)Position;
-                        byte[] bytes = new byte[8];
-                        for (int i = 0; i < 8; i++)
-                        {
-                            bytes[i] = reader.ReadByte();
-                        }
-                        return bytes;
-
-                    }
-                    */
-                }
-            }
+            byte[] b = new byte[] { 0 };
+            return b;
 
         }
 
