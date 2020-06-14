@@ -17,12 +17,18 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
 
-            string path;
-            path = Console.ReadLine();
+           // string path;
+          //  path = Console.ReadLine();
 
-            ScanSession session = new ScanSession(@path, "User");
+            ScanSession session = new ScanSession(@"C:\amw", "User");
 
             ScanReport report = session.getReport();
+            foreach(var s in report.listThread)
+            {
+                string[] f = s.Split(' ');
+                Console.WriteLine(f[0]);
+                Console.WriteLine(f[1]);
+            }
 
             /*
             string z;

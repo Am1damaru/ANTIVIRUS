@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection.Emit;
 using System.Text;
 
@@ -11,7 +12,7 @@ namespace Core.DomainObjects.scan
 
         public DateTime timeStart { get; set; }
 
-        public DateTime timeStop { get;  }
+        public DateTime timeStop { get; set; }
 
         public ulong scannedObjects { get; set; }
 
@@ -20,6 +21,8 @@ namespace Core.DomainObjects.scan
         public List<string> listThread { get; set; }
 
         private string NameVirus;
+
+        public string PathBase = "base.txt";
 
         public ScanReport()
         {
@@ -39,7 +42,7 @@ namespace Core.DomainObjects.scan
             NameVirus = Name;
             if(listThread == null)
                 listThread = new List<string>();
-            listThread.Add(path + "-VIRUS-" + Name);
+            listThread.Add(path + " " + Name);
         }
         public void AddRecord(ScanReport report)
         {
@@ -52,6 +55,21 @@ namespace Core.DomainObjects.scan
                 }
                 threatsDetected = (ulong)listThread.Count;
             }
+        }
+
+        public void SaveResult()
+        {
+            timeStop = DateTime.Now;
+
+            using (StreamWriter sw = new StreamWriter(PathBase))
+            {
+                sw.WriteLine(timeStart + " --- " + timeStop);
+                foreach (var s in listThread)
+                {
+                    string[] f = s.Split(' ');
+                    sw.WriteLine("Путь: "+ f[0] + "\tИмя вируса: " + f[1]);
+                }
+            }   
         }
     }
 }

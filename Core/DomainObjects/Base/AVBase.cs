@@ -10,7 +10,7 @@ namespace Core.DomainObjects.Base
 {
     public class AVBase
     {
-        public string BasePath = @"C:\amw\SigBase.dat";
+        public string BasePath = "SigBase.dat";
 
         private string NameBase = "BVT1702-KGK";
 

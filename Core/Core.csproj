@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="DomainObjects\Bases\ThreadSignature.cs" />
     <Compile Include="DomainObjects\Base\AVBase.cs" />
+    <Compile Include="DomainObjects\Monitor\DirectoryMonitor.cs" />
     <Compile Include="DomainObjects\ScanObjectAbstraction\IObjectContent.cs" />
     <Compile Include="DomainObjects\ScanObjectAbstraction\ScanObject.cs" />
     <Compile Include="DomainObjects\ScanObjectAbstraction\ScanRejion.cs" />
